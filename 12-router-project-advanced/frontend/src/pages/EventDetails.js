@@ -7,3 +7,7 @@ const EventDetailsPage = () => {
 };
 
 export default EventDetailsPage;
+
+export async function loader({}) {
+  fetch('http://localhost:8080/events/');
+}
