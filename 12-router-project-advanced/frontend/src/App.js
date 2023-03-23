@@ -8,7 +8,9 @@ import RootLayout from './pages/Root';
 import EventsLayout from './pages/EventsLayout';
 import HomePage from './pages/Home';
 import EventsPage, { loader as eventsLoader } from './pages/Events';
-import EventDetailsPage from './pages/EventDetails';
+import EventDetailsPage, {
+  loader as eventDetailsLoader,
+} from './pages/EventDetails';
 import NewEventPage from './pages/NewEvent';
 import EditEventPage from './pages/EditEvent';
 import ErrorPage from './pages/Error';
@@ -29,9 +31,19 @@ const router = createBrowserRouter([
             element: <EventsPage />,
             loader: eventsLoader,
           },
-          { path: ':eventId', element: <EventDetailsPage /> },
+          {
+            path: ':eventId',
+            id: 'event-details',
+            loader: eventDetailsLoader,
+            children: [
+              {
+                index: true,
+                element: <EventDetailsPage />,
+              },
+              { path: 'edit', element: <EditEventPage /> },
+            ],
+          },
           { path: 'new', element: <NewEventPage /> },
-          { path: ':eventId/edit', element: <EditEventPage /> },
         ],
       },
     ],
